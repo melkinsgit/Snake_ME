@@ -12,6 +12,7 @@ public class Kibble {
     private int kibbleX; //This is the square number (not pixel)
     private int kibbleY;  //This is the square number (not pixel)
 
+    // constructor that just determines the x, y coords for a Kibble
     public Kibble(Snake s){
         //Kibble needs to know where the snake is, so it does not create a kibble in the snake
         //Pick a random location for kibble, check if it is in the snake

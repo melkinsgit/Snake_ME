@@ -6,6 +6,7 @@ package com.margaret;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -21,11 +22,13 @@ public class DrawSnakeGamePanel extends JPanel {
     private Snake snake;
     private Kibble kibble;
     private Score score;
+    private Mazes maze;
 
-    DrawSnakeGamePanel(Snake s, Kibble k, Score sc){
+    DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Mazes m){
         this.snake = s;
         this.kibble = k;
         this.score = sc;
+        this.maze = m;
     }
 
     public Dimension getPreferredSize() {
@@ -62,9 +65,6 @@ public class DrawSnakeGamePanel extends JPanel {
                 break;
             }
         }
-
-
-
     }
 
     private void displayGameWon(Graphics g) {
@@ -79,23 +79,26 @@ public class DrawSnakeGamePanel extends JPanel {
         g.drawString("GAME OVER", 150, 150);
 
         String textScore = score.getStringScore();
-        String textHighScore = score.getStringHighScore();
         String newHighScore = score.newHighScore();
+        String textHighScore = score.getStringHighScore();
 
         g.drawString("SCORE = " + textScore, 150, 250);
 
         g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
-        g.drawString(newHighScore, 150, 400);
+        g.drawString(newHighScore, 150, 325);
 
-        g.drawString("press a key to play again", 150, 350);
-        g.drawString("Press q to quit the game",150,400);
+        g.drawString("Press a key to play again", 150, 350);
+        g.drawString("Press q to quit the game", 150, 400);
 
     }
 
     private void displayGame(Graphics g) {
-        displayGameGrid(g);
+        displayGameGrid(g);  // these are method calls to show the grid, the snake and the first kibble
         displaySnake(g);
         displayKibble(g);
+        if (SnakeGUI.mazes) {
+            displayMaze(g);
+        }
     }
 
     private void displayGameGrid(Graphics g) {
@@ -126,8 +129,19 @@ public class DrawSnakeGamePanel extends JPanel {
         int x = kibble.getKibbleX() * SnakeGame.squareSize;
         int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-        g.fillRect(x+1, y+1, SnakeGame.squareSize-2, SnakeGame.squareSize-2);
+        g.fillRect(x+1, y+1, SnakeGame.squareSize-1, SnakeGame.squareSize-1);
 
+    }
+
+    private void displayMaze(Graphics g){
+
+        //Make the maze Aqua
+        g.setColor(Color.CYAN);
+
+        //Draw maze
+        for (Point p : maze.getCoordinates()) {
+            g.fillRect((int)p.getX()+2, (int)p.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
+        }
     }
 
     private void displaySnake(Graphics g) {
@@ -137,13 +151,18 @@ public class DrawSnakeGamePanel extends JPanel {
         //Draw head in grey
         g.setColor(Color.LIGHT_GRAY);
         Point head = coordinates.pop();
-        g.fillRect((int)head.getX(), (int)head.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+        g.fillRect((int)head.getX()+2, (int)head.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
+
+        Point tail = coordinates.removeLast();
 
         //Draw rest of snake in black
         g.setColor(Color.BLACK);
         for (Point p : coordinates) {
-            g.fillRect((int)p.getX(), (int)p.getY(), SnakeGame.squareSize, SnakeGame.squareSize);
+            g.fillRect((int)p.getX()+2, (int)p.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
         }
+
+        g.setColor(Color.ORANGE);
+        g.fillRect((int)tail.getX()+2, (int)tail.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
 
     }
 
