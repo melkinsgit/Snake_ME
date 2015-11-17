@@ -37,6 +37,7 @@ public class GameClock extends TimerTask {
                 //
                 snake.moveSnake();
                 if (snake.didEatKibble(kibble) == true) {
+                    java.awt.Toolkit.getDefaultToolkit().beep();
                     //tell kibble to update, put another piece of kibble on the board
                     kibble.moveKibble(snake);
                     // eat a kibble get a point

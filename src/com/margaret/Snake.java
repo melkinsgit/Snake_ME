@@ -98,7 +98,6 @@ public class Snake {
                         //make a Point for this segment's coordinates and add to list
                         Point p = new Point(x * squareSize , y * squareSize);
                         segmentCoordinates.add(p);
-                        System.out.println("Building snake segments to draw list.");
                     }
                 }
             }
@@ -151,10 +150,10 @@ public class Snake {
         //Did you hit the wall, snake?
         //Or eat your tail? Don't move.
 
-        if ( hitWall == true || ateTail == true) { // TODO do we need this?
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            return;
-        }
+//        if ( hitWall == true || ateTail == true) { // TODO do we need this?
+//            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+//            return;
+//        }
 
         //Use snakeSquares array, and current heading, to move snake
 
@@ -200,6 +199,7 @@ public class Snake {
             if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ){
                 hitWall = true;
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+                System.out.println("I lost");
                 return;
             }
         }
@@ -224,14 +224,18 @@ public class Snake {
         if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
             ateTail = true;
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+            System.out.println("I lost");
             return;
         }
 
         //Did the snake hit a maze wall?
-        if (Mazes.mazeGrid[snakeHeadX][snakeHeadY] == -1){
-            hitMaze = true;
-            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            return;
+        if (SnakeGUI.isMazes()){
+            if (Mazes.mazeGrid[snakeHeadX][snakeHeadY] == -1) {
+                hitMaze = true;
+                SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+                System.out.println("I lost");
+                return;
+            }
         }
 
         //Otherwise, game is still on. Add new head
@@ -253,7 +257,6 @@ public class Snake {
         else {
             //Snake has just eaten. leave tail as is.  Decrease justAte... variable by 1.
             justAteMustGrowThisMuch -- ;
-            java.awt.Toolkit.getDefaultToolkit().beep();
             snakeSize ++;
         }
 
@@ -330,6 +333,7 @@ public class Snake {
     public boolean isGameOver() {
         if (hitWall == true || ateTail == true){
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+            System.out.println("I lost in isGameOver");
             return true;
 
         }
