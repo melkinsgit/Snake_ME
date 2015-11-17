@@ -98,6 +98,7 @@ public class Snake {
                         //make a Point for this segment's coordinates and add to list
                         Point p = new Point(x * squareSize , y * squareSize);
                         segmentCoordinates.add(p);
+                        System.out.println("Building snake segments to draw list.");
                     }
                 }
             }

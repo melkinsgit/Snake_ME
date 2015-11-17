@@ -4,6 +4,8 @@ package com.margaret;
  * Created by sn0173nd on 10/21/2015.
  */
 
+import org.omg.PortableInterceptor.DISCARDING;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
@@ -16,6 +18,16 @@ import javax.swing.JPanel;
  *
  */
 public class DrawSnakeGamePanel extends JPanel {
+
+    protected static final int SCREEN_SECOND = 3;
+    protected static final int SCREEN_THIRD = 5;
+    protected static final int SCREEN_FOURTH = 6;
+    protected static final int SCREEN_FIFTH = 7;
+    protected static final int SCREEN_SIXTH = 8;
+    protected static final int SCREEN_SEVENTH = 9;
+    protected static final int SCREEN_SEGS = 10;
+
+    protected static final int MOVE_LEFT = -40;
 
     private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
 
@@ -75,20 +87,21 @@ public class DrawSnakeGamePanel extends JPanel {
     }
     private void displayGameOver(Graphics g) {
 
-        g.clearRect(100,100,350,350);
-        g.drawString("GAME OVER", 150, 150);
+        g.clearRect(SnakeGame.xPixelMaxDimension, SnakeGame.yPixelMaxDimension, SnakeGame.xPixelMaxDimension, SnakeGame.yPixelMaxDimension);
+        g.drawString("GAME OVER", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
         String textScore = score.getStringScore();
         String newHighScore = score.newHighScore();
         String textHighScore = score.getStringHighScore();
 
-        g.drawString("SCORE = " + textScore, 150, 250);
+        g.drawString("SCORE = " + textScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SECOND * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
-        g.drawString("HIGH SCORE = " + textHighScore, 150, 300);
-        g.drawString(newHighScore, 150, 325);
+        g.drawString("HIGH SCORE = " + textHighScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_THIRD * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
+        g.drawString(newHighScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FOURTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
-        g.drawString("Press a key to play again", 150, 350);
-        g.drawString("Press q to quit the game", 150, 400);
+        displayInstructions(g);
+//        g.drawString("Press a key to play again", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FIFTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
+//        g.drawString("Press q to quit the game", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SIXTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
     }
 
@@ -167,8 +180,8 @@ public class DrawSnakeGamePanel extends JPanel {
     }
 
     private void displayInstructions(Graphics g) {
-        g.drawString("Press any key to begin!",100,200);
-        g.drawString("Press q to quit the game",100,300);
+        g.drawString("Press any key to begin!",MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FIFTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
+        g.drawString("Press q to quit the game",MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SIXTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
     }
 
 

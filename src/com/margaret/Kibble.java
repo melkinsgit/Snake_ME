@@ -25,14 +25,19 @@ public class Kibble {
 
         Random rng = new Random();
         boolean kibbleInSnake = true;
-        while (kibbleInSnake == true) {
+        boolean kibbleInMaze = true;
+        while (kibbleInSnake == true || kibbleInMaze == true) {
             //Generate random kibble location
             kibbleX = rng.nextInt(SnakeGame.xSquares);
             kibbleY = rng.nextInt(SnakeGame.ySquares);
             kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
+            if (SnakeGUI.isMazes()) {
+                kibbleInMaze = SnakeGame.maze.isMazeSegment(kibbleX, kibbleY);
+            }
+            else {
+                kibbleInMaze = false;
+            }
         }
-
-
     }
 
     public int getKibbleX() {

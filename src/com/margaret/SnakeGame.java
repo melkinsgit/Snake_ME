@@ -7,7 +7,6 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-    // TODO fix kibble in maze
     // TODO fix ugly start screen
     // TODO add other features
     // TODO get rid of magic numbers
@@ -27,7 +26,7 @@ public class SnakeGame {
 
     // instantiate a Snake, protected static for access, a Snake contains 2D array of squares that all start at value 0, and an attendant LinkedList of points which are the coordinates of the current status of the snake; the LinkedList reflects points of the array, which are the squaras the snake is actually in; the Snake also moves the snake, keeps track of wins and can tell the Kibble if a certain 2D array spot has snake in it - any segement of the current snake
     // TODO why static?
-     protected static Snake snake ;
+    protected static Snake snake ;
 
     // instantiate a Kibble, a Kibble is a randomly placed in the Snake 2D array, as long as the current snake is not there
     protected static Kibble kibble;
@@ -49,7 +48,7 @@ public class SnakeGame {
 
 //    protected static long clockInterval = 1250; //controls game speed
 
-    protected static long clockInterval; //controls game speed
+    protected static long clockInterval;
     //Every time the clock ticks, the snake moves
     //This is the time between clock ticks, in milliseconds
     //1000 milliseconds = 1 second.
@@ -88,11 +87,11 @@ public class SnakeGame {
         ySquares = yPixelMaxDimension / squareSize;
 
         snake = new Snake(xSquares, ySquares, squareSize);
-        score = new Score();
-        kibble = new Kibble(snake);
         if (SnakeGUI.isMazes()){
             maze = new Mazes();
         }
+        score = new Score();
+        kibble = new Kibble(snake);
         gameStage = BEFORE_GAME;
     }
 
