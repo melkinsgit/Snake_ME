@@ -33,6 +33,9 @@ public class Kibble {
             kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
             if (SnakeGUI.isMazes()) {
                 kibbleInMaze = SnakeGame.maze.isMazeSegment(kibbleX, kibbleY);
+                System.out.println("Have created maze. Now making a kibble for the board. Kibble in " + kibbleX + " ," + kibbleY + " of maze is " + kibbleInMaze);
+                System.out.println("Maze of " + kibbleX + " ," + kibbleY + " is " + SnakeGame.maze.isMazeSegment(kibbleX, kibbleY));
+                System.out.println("The maze boolean should be the kibble value in maze.");
             }
             else {
                 kibbleInMaze = false;

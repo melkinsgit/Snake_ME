@@ -73,7 +73,14 @@ public class Snake {
         }
     }
 
-//    private void fillSnakeSquaresWithZeros() {
+    public int getSnakeHeadX() {
+        return snakeHeadX;
+    }
+
+    public int getSnakeHeadY() {
+        return snakeHeadY;
+    }
+    //    private void fillSnakeSquaresWithZeros() {
 //        for (int x = 0; x < this.maxX; x++){
 //            for (int y = 0 ; y < this.maxY ; y++) {
 //                if (y == 5 && x < 8) {
@@ -150,10 +157,10 @@ public class Snake {
         //Did you hit the wall, snake?
         //Or eat your tail? Don't move.
 
-//        if ( hitWall == true || ateTail == true) { // TODO do we need this?
-//            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-//            return;
-//        }
+        if ( hitWall == true || ateTail == true) { // TODO do we need this?
+            SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+            return;
+        }
 
         //Use snakeSquares array, and current heading, to move snake
 
@@ -221,10 +228,10 @@ public class Snake {
 
         //Does this make the snake eat its tail?
 
-        if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
+        if (snakeSquares[snakeHeadX][snakeHeadY] != 0 && snakeSquares[snakeHeadX][snakeHeadY] != -1) {  // just added -1 to this test to see if the game is losing when the snake is in the maze
             ateTail = true;
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            System.out.println("I lost");
+            System.out.println("I lost because I ate my tail");
             return;
         }
 
@@ -233,7 +240,7 @@ public class Snake {
             if (Mazes.mazeGrid[snakeHeadX][snakeHeadY] == -1) {
                 hitMaze = true;
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-                System.out.println("I lost");
+                System.out.println("I lost because the snake hit the maze");
                 return;
             }
         }

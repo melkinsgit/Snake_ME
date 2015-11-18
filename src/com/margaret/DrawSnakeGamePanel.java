@@ -108,11 +108,8 @@ public class DrawSnakeGamePanel extends JPanel {
     private void displayGame(Graphics g) {
         displayGameGrid(g);  // these are method calls to show the grid, the snake and the first kibble
         displaySnake(g);
-        System.out.println("Displayed snake");
         displayKibble(g);
-        System.out.println("Displayed kibble");
         if (SnakeGUI.isMazes()) {
-            System.out.println("About to display maze");
             displayMaze(g);
         }
     }
@@ -145,8 +142,12 @@ public class DrawSnakeGamePanel extends JPanel {
         int x = kibble.getKibbleX() * SnakeGame.squareSize;
         int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-        g.fillRect(x+1, y+1, SnakeGame.squareSize-1, SnakeGame.squareSize-1);
-
+        if (maze.isMazeSegment(kibble.getKibbleX(),kibble.getKibbleY())){
+            kibble.moveKibble(snake);
+        }
+        else {
+            g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 1, SnakeGame.squareSize - 1);
+        }
     }
 
     private void displayMaze(Graphics g){

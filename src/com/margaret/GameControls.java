@@ -34,6 +34,7 @@ public class GameControls implements KeyListener{
         }
 
         if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
+            SnakeGame.timer.cancel();
             snake.reset();
             Score.resetScore();
 

@@ -7,14 +7,12 @@ import javax.swing.*;
 
 public class SnakeGame {
 
-    // TODO fix ugly start screen
-    // TODO add other features
-    // TODO get rid of magic numbers
-
 //    public static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 //    public static int yPixelMaxDimension = 501;
 
-    public static int xPixelMaxDimension;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+    public static Timer timer;
+
+    public static int xPixelMaxDimension;  //Pixels in window. Enough for pixels in squares plus 1 to draw a border on last square. Actual values assigned in SnakeGUI class depending upon user input
     public static int yPixelMaxDimension;
 
     public static int xSquares;
@@ -22,17 +20,18 @@ public class SnakeGame {
 
 //    public static int squareSize = 50;
 
-    public static int squareSize;
+    public static int squareSize;  //Size determined by user input and assigned in SnakeGUI class
 
-    // instantiate a Snake, protected static for access, a Snake contains 2D array of squares that all start at value 0, and an attendant LinkedList of points which are the coordinates of the current status of the snake; the LinkedList reflects points of the array, which are the squaras the snake is actually in; the Snake also moves the snake, keeps track of wins and can tell the Kibble if a certain 2D array spot has snake in it - any segement of the current snake
-    // TODO why static?
+    // instantiate a Snake, protected static for access, a Snake contains 2D array of squares that all start at value 0, and an attendant LinkedList of points which are the coordinates of the current status of the snake; the LinkedList reflects points of the array, which are the squares the snake is actually in; the Snake also moves the snake, keeps track of wins and can tell the Kibble if a certain 2D array spot has snake in it
     protected static Snake snake ;
 
     // instantiate a Kibble, a Kibble is a randomly placed in the Snake 2D array, as long as the current snake is not there
     protected static Kibble kibble;
 
+    // instantiate Score score, a Score keeps the score for the current game; holds a score increment value (1) and tracks the high score for a session of games
     protected static Score score;
 
+    // instantiate Mazes maze, a Maze is a grid of squares that the snake cannot access, it has the same dimensions as the game board depending on user input in SnakeGUI; user input also determines how many mazes there will be on the board and how many squares each maze will comprise
     protected static Mazes maze;
 
     static final int BEFORE_GAME = 1;
@@ -43,7 +42,7 @@ public class SnakeGame {
     //Using constant names instead makes it easier to keep it straight. Refer to these variables
     //using statements such as SnakeGame.GAME_OVER
 
-    private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening.
+    private static int gameStage = BEFORE_GAME;  //the original value is before game, use this to figure out what should be happening.
     //Other classes like Snake and DrawSnakeGamePanel will need to query this, and change its value
 
 //    protected static long clockInterval = 1250; //controls game speed
@@ -88,6 +87,7 @@ public class SnakeGame {
 
         snake = new Snake(xSquares, ySquares, squareSize);
         if (SnakeGUI.isMazes()){
+            System.out.println("In Init game. Going to instantiate maze.");
             maze = new Mazes();
         }
         score = new Score();
@@ -96,7 +96,7 @@ public class SnakeGame {
     }
 
     protected static void newGame() {
-        Timer timer = new Timer();
+        timer = new Timer();
         GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
         timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
     }
