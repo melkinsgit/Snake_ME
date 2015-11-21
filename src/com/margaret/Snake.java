@@ -3,6 +3,12 @@ package com.margaret;
 import java.awt.Point;
 import java.util.LinkedList;
 
+/*
+ *
+ * @author Clara
+ * Additions by Margaret Elkins
+ */
+
 public class Snake {
 
     final int DIRECTION_UP = 0;
@@ -80,18 +86,6 @@ public class Snake {
     public int getSnakeHeadY() {
         return snakeHeadY;
     }
-    //    private void fillSnakeSquaresWithZeros() {
-//        for (int x = 0; x < this.maxX; x++){
-//            for (int y = 0 ; y < this.maxY ; y++) {
-//                if (y == 5 && x < 8) {
-//                    snakeSquares[x][y] = 0;
-//                }
-//                else {
-//                    snakeSquares [x][y] = 1;
-//                }
-//            }
-//        }
-//    }
 
     public LinkedList<Point> segmentsToDraw(){
         //Return a list of the actual x and y coordinates of the top left of each snake segment
@@ -227,7 +221,7 @@ public class Snake {
 
         //Does this make the snake eat its tail?
 
-        if (snakeSquares[snakeHeadX][snakeHeadY] != 0 && snakeSquares[snakeHeadX][snakeHeadY] != -1) {  // just added -1 to this test to see if the game is losing when the snake is in the maze
+        if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
             ateTail = true;
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
             return;
@@ -269,14 +263,6 @@ public class Snake {
 
     }
 
-    protected boolean didHitWall(){
-        return hitWall;
-    }
-
-    protected boolean didEatTail(){
-        return ateTail;
-    }
-
     public boolean isSnakeSegment(int kibbleX, int kibbleY) {
         // make sure kibble isn't in snake or in a maze grid spot
         if (snakeSquares[kibbleX][kibbleY] == 0) {
@@ -307,7 +293,7 @@ public class Snake {
         return textsnake;
     }
 
-    public boolean wonGame() {
+    public boolean wonGame() { // from original code, never used
 
         //If all of the squares have snake segments in, the snake has eaten so much kibble
         //that it has filled the screen. Win!
@@ -335,20 +321,11 @@ public class Snake {
 
     }
 
-    public boolean isGameOver() {
+    public boolean isGameOver() {  // from original code, never used
         if (hitWall == true || ateTail == true){
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
             return true;
-
         }
         return false;
-    }
-
-    public static void setSnakeSquares(int[][] snakeSquares) {
-        Snake.snakeSquares = snakeSquares;
-    }
-
-    protected static int[][] getSnakeSquares() {
-        return snakeSquares;
     }
 }

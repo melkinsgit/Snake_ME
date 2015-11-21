@@ -3,6 +3,12 @@ package com.margaret;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/*
+ *
+ * @author Clara
+ * Additions made by Margaret Elkins
+ */
+
 public class GameControls implements KeyListener{
 
     Snake snake;

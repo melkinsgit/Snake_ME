@@ -4,11 +4,14 @@ import java.util.Timer;
 
 import javax.swing.*;
 
+/*
+ *
+ * @author Clara
+ * Additions by Margaret Elkins
+ */
 
 public class SnakeGame {
 
-//    public static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-//    public static int yPixelMaxDimension = 501;
 
     public static Timer timer;  // New GLOBAL variable timer
 
@@ -17,8 +20,6 @@ public class SnakeGame {
 
     public static int xSquares;  // the number of squares for each dimension of the grid that holds the snake and the grid that holds the mazes
     public static int ySquares;  // these values are determined using a calculation based on user input for the size game played
-
-//    public static int squareSize = 50;
 
     public static int squareSize;  //Size determined by user input and assigned in SnakeGUI class
 
@@ -44,8 +45,6 @@ public class SnakeGame {
 
     private static int gameStage = BEFORE_GAME;  //the original value is before game, use this to figure out what should be happening.
     //Other classes like Snake and DrawSnakeGamePanel will need to query this, and change its value
-
-//    protected static long clockInterval = 1250; //controls game speed
 
     protected static long clockInterval;
     //Every time the clock ticks, the snake moves
@@ -118,13 +117,7 @@ public class SnakeGame {
         });
     }
 
-
-
-    public static int getGameStage() {
-        return gameStage;
-    }
-
-    // pure function only alters vars inside
+    // pure function only alters vars inside - from original code, but note used
     public static boolean gameEnded() {
         if (gameStage == GAME_OVER || gameStage == GAME_WON){
             return true;
@@ -132,6 +125,10 @@ public class SnakeGame {
         return false;
     }
 
+    // Getter and Setter
+    public static int getGameStage() {
+        return gameStage;
+    }
     public static void setGameStage(int gameStage) {
         SnakeGame.gameStage = gameStage;
     }

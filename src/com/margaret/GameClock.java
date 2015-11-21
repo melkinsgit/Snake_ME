@@ -2,6 +2,12 @@ package com.margaret;
 
 import java.util.TimerTask;
 
+/*
+ *
+ * @author Clara
+ * Additions by Margaret Elkins
+ */
+
 public class GameClock extends TimerTask {
 
 

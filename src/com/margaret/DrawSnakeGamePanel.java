@@ -1,22 +1,16 @@
 package com.margaret;
 
-/**
- * Created by sn0173nd on 10/21/2015.
+/*
+ *
+ * @author Clara
+ * Additions by Margaret Elkins
  */
 
-import org.omg.PortableInterceptor.DISCARDING;
 
 import java.awt.*;
 import java.util.LinkedList;
-import java.util.Random;
-
 import javax.swing.JPanel;
 
-/** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
- *
- * @author Clara
- *
- */
 public class DrawSnakeGamePanel extends JPanel {
 
     protected static final int SCREEN_SECOND = 3;  // these are variables used to establish spacing of the text on the display screen
@@ -79,7 +73,7 @@ public class DrawSnakeGamePanel extends JPanel {
         }
     }
 
-    private void displayGameWon(Graphics g) {
+    private void displayGameWon(Graphics g) {  // never got here
         // TODO Replace this with something really special!
         g.clearRect(100,100,350,350);
         g.drawString("YOU WON SNAKE!!!", 150, 150);
@@ -103,14 +97,14 @@ public class DrawSnakeGamePanel extends JPanel {
 
         // instead of the two lines of code that were here, I just recalled the display instructions method and made sure the instructions were always in a place on the screen that didn't interfere with game_over displays
         displayInstructions(g);
-//        g.drawString("Press a key to play again", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FIFTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
-//        g.drawString("Press q to quit the game", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SIXTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
-
     }
 
     private void displayGame(Graphics g) {
         displayGameGrid(g);  // these are method calls to show the grid, the snake and the first kibble
         displaySnake(g);
+        if (SnakeGUI.isMazes()) {  // if the user had chosen to have mazes display the maze
+            displayMaze(g);
+        }
         displayKibble(g);
         if (SnakeGUI.isMazes()) {  // if the user had chosen to have mazes display the maze
             displayMaze(g);
@@ -142,15 +136,18 @@ public class DrawSnakeGamePanel extends JPanel {
         //Draw the kibble in green
         g.setColor(Color.GREEN);
 
+        // get the position of the kibble
         int x = kibble.getKibbleX() * SnakeGame.squareSize;
         int y = kibble.getKibbleY() * SnakeGame.squareSize;
 
-        if (maze.isMazeSegment(kibble.getKibbleX(),kibble.getKibbleY())){
-            kibble.moveKibble(snake);
+        // if mazes are turned on and the kibble is in the maze move it
+        if (SnakeGUI.isMazes()) {
+            if (maze.isMazeSegment(kibble.getKibbleX(), kibble.getKibbleY())) {
+                SnakeGame.kibble.moveKibble(snake);
+            }
         }
-        else {
-            g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 1, SnakeGame.squareSize - 1);
-        }
+        // display the kibble
+        g.fillRect(x + 1, y + 1, SnakeGame.squareSize - 1, SnakeGame.squareSize - 1);
     }
 
     private void displayMaze(Graphics g){

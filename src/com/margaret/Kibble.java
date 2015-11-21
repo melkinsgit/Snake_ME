@@ -2,6 +2,12 @@ package com.margaret;
 
 import java.util.Random;
 
+/*
+ *
+ * @author Clara
+ * Additions by Margaret Elkins
+ */
+
 public class Kibble {
 
     /** Identifies a random square to display a kibble

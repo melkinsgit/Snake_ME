@@ -1,7 +1,7 @@
 package com.margaret;
 
 /** Keeps track of, and display the user's score
- *
+ * author @clara
  */
 
 
