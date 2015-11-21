@@ -157,7 +157,7 @@ public class Snake {
         //Did you hit the wall, snake?
         //Or eat your tail? Don't move.
 
-        if ( hitWall == true || ateTail == true) { // TODO do we need this?
+        if ( hitWall == true || ateTail == true) {
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
             return;
         }
@@ -200,25 +200,24 @@ public class Snake {
             snakeHeadX ++ ;
         }
 
-        //Create the warp walls feature
-
+        // if the user has not chosen to have warp walls in their game, end the game when they hit a wall
         if (!SnakeGUI.warpWalls) {
             if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ){
                 hitWall = true;
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-                System.out.println("I lost");
                 return;
             }
         }
+        // if the user decided to play with warp walls reposition the head of the snake x and y values depending on which direction the snake has gone off screen
         else {
-            if (snakeHeadX >= maxX) {
+            if (snakeHeadX >= maxX) { // if the snake goes off right, start them back on the left where x = 0
                 snakeHeadX = 0;
             }
-            if (snakeHeadX < 0) {
-                snakeHeadX = maxX - Math.abs(snakeHeadX) % maxX;
+            if (snakeHeadX < 0) { // if the snake goes off left, start them back on the right
+                snakeHeadX = maxX - Math.abs(snakeHeadX) % maxX;  // probably more math than I needed, but it works
             }
 
-            if (snakeHeadY >= maxY) {
+            if (snakeHeadY >= maxY) {  // y values work the same way they x values work
                 snakeHeadY = 0;
             }
             if (snakeHeadY < 0) {
@@ -231,16 +230,15 @@ public class Snake {
         if (snakeSquares[snakeHeadX][snakeHeadY] != 0 && snakeSquares[snakeHeadX][snakeHeadY] != -1) {  // just added -1 to this test to see if the game is losing when the snake is in the maze
             ateTail = true;
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            System.out.println("I lost because I ate my tail");
             return;
         }
 
         //Did the snake hit a maze wall?
+        // this is similar to hitting a wall, it ends the game, but it's only considered if the user has chosen to play with mazes
         if (SnakeGUI.isMazes()){
-            if (Mazes.mazeGrid[snakeHeadX][snakeHeadY] == -1) {
+            if (Mazes.mazeGrid[snakeHeadX][snakeHeadY] == -1) {  // -1 is the value in mazeGrid for each square that is a piece of the maze
                 hitMaze = true;
                 SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-                System.out.println("I lost because the snake hit the maze");
                 return;
             }
         }
@@ -330,8 +328,8 @@ public class Snake {
     public void reset() {
         hitWall = false;
         ateTail = false;
-        hitMaze = false;
-        SnakeGame.maze = new Mazes();
+        hitMaze = false;  // set the hit the maze boolean to false, too
+        SnakeGame.maze = new Mazes();  // and create a new maze
         fillSnakeSquaresWithZeros();
         createStartSnake();
 
@@ -340,7 +338,6 @@ public class Snake {
     public boolean isGameOver() {
         if (hitWall == true || ateTail == true){
             SnakeGame.setGameStage(SnakeGame.GAME_OVER);
-            System.out.println("I lost in isGameOver");
             return true;
 
         }

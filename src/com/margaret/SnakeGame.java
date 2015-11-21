@@ -10,13 +10,13 @@ public class SnakeGame {
 //    public static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 //    public static int yPixelMaxDimension = 501;
 
-    public static Timer timer;
+    public static Timer timer;  // New GLOBAL variable timer
 
     public static int xPixelMaxDimension;  //Pixels in window. Enough for pixels in squares plus 1 to draw a border on last square. Actual values assigned in SnakeGUI class depending upon user input
     public static int yPixelMaxDimension;
 
-    public static int xSquares;
-    public static int ySquares;
+    public static int xSquares;  // the number of squares for each dimension of the grid that holds the snake and the grid that holds the mazes
+    public static int ySquares;  // these values are determined using a calculation based on user input for the size game played
 
 //    public static int squareSize = 50;
 
@@ -87,7 +87,6 @@ public class SnakeGame {
 
         snake = new Snake(xSquares, ySquares, squareSize);
         if (SnakeGUI.isMazes()){
-            System.out.println("In Init game. Going to instantiate maze.");
             maze = new Mazes();
         }
         score = new Score();
@@ -96,8 +95,8 @@ public class SnakeGame {
     }
 
     protected static void newGame() {
-        timer = new Timer();
-        GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);
+        timer = new Timer();  // the time is redefined each new game with a new Timer(); the time schedules the task in the run() override in GameClock
+        GameClock clockTick = new GameClock(snake, kibble, score, snakePanel);  // new TimerTask each game
         timer.scheduleAtFixedRate(clockTick, 0 , clockInterval);
     }
 

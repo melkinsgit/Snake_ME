@@ -31,13 +31,10 @@ public class Kibble {
             kibbleX = rng.nextInt(SnakeGame.xSquares);
             kibbleY = rng.nextInt(SnakeGame.ySquares);
             kibbleInSnake = s.isSnakeSegment(kibbleX, kibbleY);
-            if (SnakeGUI.isMazes()) {
+            if (SnakeGUI.isMazes()) { // don't put a kibble in a maze spot
                 kibbleInMaze = SnakeGame.maze.isMazeSegment(kibbleX, kibbleY);
-                System.out.println("Have created maze. Now making a kibble for the board. Kibble in " + kibbleX + " ," + kibbleY + " of maze is " + kibbleInMaze);
-                System.out.println("Maze of " + kibbleX + " ," + kibbleY + " is " + SnakeGame.maze.isMazeSegment(kibbleX, kibbleY));
-                System.out.println("The maze boolean should be the kibble value in maze.");
             }
-            else {
+            else {  // but if there's no maze, no need to check
                 kibbleInMaze = false;
             }
         }

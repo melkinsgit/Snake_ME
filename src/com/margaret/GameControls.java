@@ -23,7 +23,6 @@ public class GameControls implements KeyListener{
         //It would be a good idea to catch a ClassCastException here.
 
         DrawSnakeGamePanel panel = (DrawSnakeGamePanel)ev.getComponent();
-        System.out.println("Game stage in game controls is " + SnakeGame.getGameStage());
 
         if (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
             //Start the game
@@ -34,7 +33,7 @@ public class GameControls implements KeyListener{
         }
 
         if (SnakeGame.getGameStage() == SnakeGame.GAME_OVER){
-            SnakeGame.timer.cancel();
+            SnakeGame.timer.cancel();  // this stops the timer
             snake.reset();
             Score.resetScore();
 

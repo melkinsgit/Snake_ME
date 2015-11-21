@@ -19,23 +19,23 @@ import javax.swing.JPanel;
  */
 public class DrawSnakeGamePanel extends JPanel {
 
-    protected static final int SCREEN_SECOND = 3;
+    protected static final int SCREEN_SECOND = 3;  // these are variables used to establish spacing of the text on the display screen
     protected static final int SCREEN_THIRD = 5;
     protected static final int SCREEN_FOURTH = 6;
     protected static final int SCREEN_FIFTH = 7;
     protected static final int SCREEN_SIXTH = 8;
-    protected static final int SCREEN_SEVENTH = 9;
     protected static final int SCREEN_SEGS = 10;
 
-    protected static final int MOVE_LEFT = -40;
+    protected static final int MOVE_LEFT = -40;  // another variable used for spacing the text on the display screen
 
     private static int gameStage = SnakeGame.BEFORE_GAME;  //use this to figure out what to paint
 
-    private Snake snake;
+    private Snake snake;  // variables for this class and the panel
     private Kibble kibble;
     private Score score;
     private Mazes maze;
 
+    // constructor that assigns the values from SnakeGame to the Snake Game Panel class
     DrawSnakeGamePanel(Snake s, Kibble k, Score sc, Mazes m){
         this.snake = s;
         this.kibble = k;
@@ -43,7 +43,7 @@ public class DrawSnakeGamePanel extends JPanel {
         this.maze = m;
     }
 
-    public Dimension getPreferredSize() {
+    public Dimension getPreferredSize() { // these values come from user input and determine the size of 
         return new Dimension(SnakeGame.xPixelMaxDimension, SnakeGame.yPixelMaxDimension);
     }
 
@@ -86,6 +86,7 @@ public class DrawSnakeGamePanel extends JPanel {
 
     }
     private void displayGameOver(Graphics g) {
+        // replaced the number values here with variables
 
         g.clearRect(SnakeGame.xPixelMaxDimension, SnakeGame.yPixelMaxDimension, SnakeGame.xPixelMaxDimension, SnakeGame.yPixelMaxDimension);
         g.drawString("GAME OVER", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
@@ -94,11 +95,13 @@ public class DrawSnakeGamePanel extends JPanel {
         String newHighScore = score.newHighScore();
         String textHighScore = score.getStringHighScore();
 
+        // the screen second, third, fourth, etc., space the text veritcally throughout the screen
         g.drawString("SCORE = " + textScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SECOND * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
         g.drawString("HIGH SCORE = " + textHighScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_THIRD * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
         g.drawString(newHighScore, MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FOURTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 
+        // instead of the two lines of code that were here, I just recalled the display instructions method and made sure the instructions were always in a place on the screen that didn't interfere with game_over displays
         displayInstructions(g);
 //        g.drawString("Press a key to play again", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FIFTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
 //        g.drawString("Press q to quit the game", MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SIXTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
@@ -109,7 +112,7 @@ public class DrawSnakeGamePanel extends JPanel {
         displayGameGrid(g);  // these are method calls to show the grid, the snake and the first kibble
         displaySnake(g);
         displayKibble(g);
-        if (SnakeGUI.isMazes()) {
+        if (SnakeGUI.isMazes()) {  // if the user had chosen to have mazes display the maze
             displayMaze(g);
         }
     }
@@ -155,7 +158,7 @@ public class DrawSnakeGamePanel extends JPanel {
         //Make the maze Aqua
         g.setColor(Color.CYAN);
 
-        //Draw maze
+        //Draw maze - this works the same way the draw snake works; but the maze positions are not store in the snake 2D array; they are stored in a 2D array in maze called mazeGrid
         for (Point p : maze.getCoordinates()) {
             g.fillRect((int)p.getX()+2, (int)p.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
         }
@@ -178,12 +181,14 @@ public class DrawSnakeGamePanel extends JPanel {
             g.fillRect((int)p.getX()+2, (int)p.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
         }
 
+        // except the tail, make that orange
         g.setColor(Color.ORANGE);
         g.fillRect((int)tail.getX()+2, (int)tail.getY()+2, SnakeGame.squareSize-3, SnakeGame.squareSize-3);
 
     }
 
     private void displayInstructions(Graphics g) {
+        // again, numbers replaced with variables
         g.drawString("Press any key to begin!",MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_FIFTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
         g.drawString("Press q to quit the game",MOVE_LEFT + SnakeGame.xPixelMaxDimension/2, SCREEN_SIXTH * SnakeGame.xPixelMaxDimension/SCREEN_SEGS);
     }
